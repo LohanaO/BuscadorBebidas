@@ -1,0 +1,9 @@
+header {
+  background-color: #efdc5f;
+  color: gray;
+  text-align: center;
+}
+header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 900;
+}
