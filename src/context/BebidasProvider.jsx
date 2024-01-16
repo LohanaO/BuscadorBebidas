@@ -7,22 +7,26 @@ const BebidasProvider = ({children}) => {
     const [modal, setModal] = useState(false)
     const [bebidaId, setBebidaId] = useState(null)
     const [receta, setReceta] = useState({})
+    const [cargando, setCargando] = useState(false)
 
     useEffect(() => {
+        setCargando(true)
         const obtenerRecetas = async () => {
             if(bebidaId === null) return
             try {
                 const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${bebidaId}`
                 const {data} = await axios(url)
-                console.log(data.drinks[0])
+                setReceta(data.drinks[0])
                 
             } catch (error) {
                 console.log(error)
+            }finally{
+                setCargando(false)
             }
            
         }
         obtenerRecetas()
-    })
+    }, [bebidaId])
 
     const obtenerBebidas = async (datos) => {
        try {
@@ -49,7 +53,9 @@ const BebidasProvider = ({children}) => {
          handleModalClick,
          modal,
          handleBebidaIdClick,
-         bebidaId
+         bebidaId,
+         receta,
+         cargando
          
         }}>
             {children}
